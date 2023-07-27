@@ -1,5 +1,7 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import './App.css';
+import ContentEditable from 'react-contenteditable'
+import sanitizeHtml from "sanitize-html"
 
 function App() {
   const [toDoArray, setToDoArray] = useState([
@@ -13,6 +15,16 @@ function App() {
   ]);
   
   const inputBox = useRef()
+
+  const onContentChange = (evt, index) => {
+    const sanitizeConf = {
+      allowedTags: ["b", "i", "a", "p"],
+      allowedAttributes: { a: ["href"] }
+    };
+    let array = [...toDoArray];
+    array[index].text = sanitizeHtml(evt.currentTarget.innerHTML, sanitizeConf) ;
+    setToDoArray(array)
+  } 
 
   const addItem = () => {
     if(inputBox.current.value !== ""){
@@ -46,10 +58,10 @@ function App() {
       <h1>TO DO LIST</h1>
       <input ref={inputBox}></input>
       <button onClick={addItem}>add</button>
-      <div class="allItemsWrap">
+      <div className="allItemsWrap">
         {toDoArray.map((item, index) => {
           return (
-            <ListItems key={index} item={item.text} isItCompleted={item.completed} delete={() => {deleteItem(index)}} completed={() => {completedItem(index)}} />   
+            <ListItems key={index} item={item.text} isItCompleted={item.completed} delete={() => {deleteItem(index)}} completed={() => {completedItem(index)}} onContentChange={(evt) => onContentChange(evt, index)}/>   
           )
         })}
       </div>
@@ -60,7 +72,12 @@ function App() {
 const ListItems = (props) => {
   return (
     <div className='itemsWrap'>
-      <p ref={props.listItem} className={props.isItCompleted ? "items completed" : " items"}>{props.item}</p>
+		<ContentEditable
+			onChange={props.onContentChange}
+			html={props.item}
+      contentEditable={true}
+      className={props.isItCompleted? "items completed":"items"}
+    />
       <div className='buttonsWrap'>
         <button className='doneButton' onClick={props.completed}>
           {props.isItCompleted ? "undo" : "done"}
