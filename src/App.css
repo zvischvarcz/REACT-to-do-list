@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mukta&family=Nunito:ital,wght@1,200&display=swap');
 
 button {
   border: none;
-  margin: 0 1vw;
-  font-size: large;
+  margin: 0 0.3vw;
+  font-size: 97%;
   border-radius: 10px;
   font-family: 'Mukta', sans-serif;
   cursor: pointer;
@@ -11,7 +11,7 @@ button {
 
 .allWrap {
   background-color: aqua;
-  width: 20vw;
+  width: 25vw;
   padding: 1vw 3vw;
   border-radius: 15px;
   position: absolute;
@@ -58,7 +58,7 @@ input {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 90%;
+  width: 94%;
 }
 
 .items {
@@ -68,16 +68,19 @@ input {
 }
 
 .buttonsWrap {
+  width: 100%;
   margin: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 
 .tabs {
   background: none;
   color: gray;
+  font-size: large;
 }
 
 .selectedTab {
@@ -91,6 +94,10 @@ input {
 .deleteButton {
   background-color: rgba(219, 4, 4, 0.545);
 }
+.empty-text{
+  text-align: center;
+  font-family: 'Nunito', sans-serif;
+}
 
 .completed {
   color: gray;
@@ -99,4 +106,16 @@ input {
 
 .hidden {
   display: none;
+}
+
+@media only screen and (max-width: 800px) {
+  .allWrap {
+    width: 60vw;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .allWrap {
+    width: 90vw;
+  }
 }

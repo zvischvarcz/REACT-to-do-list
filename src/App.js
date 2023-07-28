@@ -62,6 +62,7 @@ function App() {
     let array = [...toDoArray];
     if (array[index].completed === false){
       array[index].completed = true;
+      array.push(array.splice(index, 1)[0]);
       setToDoArray(array);
     } else {
       array[index].completed = false;
@@ -74,7 +75,6 @@ function App() {
     let arcArray = [...archiveArray];
     arcArray.push(array[index]);
     array.splice(index, 1);
-    console.log(arcArray);
     setToDoArray(array);
     setArchiveArray(arcArray);
   }
@@ -86,7 +86,7 @@ function App() {
     setToDoArray(array);
     setArchiveArray(arcArray);
   }
-
+  
 
   return (
     <div className='allWrap'>
@@ -102,18 +102,20 @@ function App() {
       <div className="allItemsWrap">
         {toDoArray.map((item, index) => {
           return (
-            <div className={selectedTab === "archive" ? "hidden":""}>
-              <ListItems key={index} item={item.text} isItCompleted={item.completed} delete={() => {deleteItem(index)}} completed={() => {completedItem(index)}} archive={() => {archiveItem(index)}} onContentChange={(evt) => onContentChange(evt, index)}/>  
+            <div key={index} className={selectedTab === "archive" ? "hidden" : undefined}>
+              <ListItems  item={item.text} isItCompleted={item.completed} delete={() => {deleteItem(index)}} completed={() => {completedItem(index)}} archive={() => {archiveItem(index)}} onContentChange={(evt) => onContentChange(evt, index)}/>  
             </div> 
           )
         })}
         {archiveArray.map((arcItem, index) => {
           return (
-            <div className={selectedTab === "main" ? "hidden":""}>
-              <ArchiveItems key={index} arcItem={arcItem.text} unArchive={() => {unArchiveItem(index)}} isItCompleted={arcItem.completed}/>
+            <div key={index} className={selectedTab === "main" ? "hidden" : undefined}>
+              <ArchiveItems  arcItem={arcItem.text} unArchive={() => {unArchiveItem(index)}} isItCompleted={arcItem.completed}/>
             </div>
           )
         })}
+        <h3 className={(selectedTab === "archive" && archiveArray.length === 0) ? "empty-text": "hidden"}>You have not archived any items.</h3>
+        <h3 className={(selectedTab === "main" && toDoArray.length === 0) ? "empty-text": "hidden"}>Add items using the input bar to store them here.</h3>
       </div>
     </div>
   );
