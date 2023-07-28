@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
 
+button {
+  border: none;
+  margin: 0 1vw;
+  font-size: large;
+  border-radius: 10px;
+  font-family: 'Mukta', sans-serif;
+  cursor: pointer;
+}
+
 .allWrap {
   background-color: aqua;
   width: 20vw;
@@ -28,10 +37,15 @@
   display: none; 
 } 
 
+.addItemsWrap {
+  display: flex;
+}
+
 input {
   font-size: larger;
   border: 1px solid black;
   border-radius: 5px;
+  width: 90%;
 }
 
 .itemsWrap {
@@ -61,9 +75,13 @@ input {
 }
 
 
-.completed {
+.tabs {
+  background: none;
   color: gray;
-  text-decoration: line-through;
+}
+
+.selectedTab {
+  text-decoration: underline;
 }
 
 .doneButton {
@@ -74,11 +92,11 @@ input {
   background-color: rgba(219, 4, 4, 0.545);
 }
 
-button {
-  border: none;
-  margin: 0 1vw;
-  font-size: large;
-  border-radius: 10px;
-  font-family: 'Mukta', sans-serif;
-  cursor: pointer;
+.completed {
+  color: gray;
+  text-decoration: line-through;
+}
+
+.hidden {
+  display: none;
 }
